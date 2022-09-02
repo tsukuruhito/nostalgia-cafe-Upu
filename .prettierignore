@@ -1,0 +1,8 @@
+.vscode
+env.d.ts
+node_modules
+package-lock.json
+public
+.prettierrc
+.eslintrc
+.eslintrc.js
