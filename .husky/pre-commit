@@ -32,4 +32,5 @@ npm run check-types ||
 )
 
 # If everything passes... Now we can build
-echo "🔥🚀 ${BOLD}All passed... commit now.${NC} 🚀🔥"
+echo "🔥🚀 ${BOLD}All passed... building now.${NC} 🚀🔥"
+npm run build
