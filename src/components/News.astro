@@ -1,0 +1,36 @@
+---
+const { id, title, publishedAt } = Astro.props;
+---
+
+<li class="news">
+	<a href={`/news/${id}`}>
+		<div class="news_time">
+			<time datetime={publishedAt}>{publishedAt.substring(0, 10)}</time>
+			<div class="news_link">
+				<img src="/link.svg" alt="" width={20} height={20} />
+			</div>
+		</div>
+		<p class="news_text">{title}</p>
+	</a>
+</li>
+
+<style>
+	.news {
+		border: 2px solid #dde9f3;
+		padding: 2%;
+		border-radius: 5px;
+		width: 100%;
+		position: relative;
+		font-size: 1rem;
+		box-sizing: border-box;
+	}
+	.news_link {
+		width: 20px;
+		height: 20px;
+	}
+	.news_time {
+		margin-bottom: 0.5rem;
+		display: flex;
+		justify-content: space-between;
+	}
+</style>

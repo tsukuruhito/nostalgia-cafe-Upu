@@ -1,0 +1,84 @@
+---
+import { Image } from "@astrojs/image/components";
+---
+
+<div class="kv">
+	<div class="kv_inner">
+		<Image src="/kv.jpg" alt="kv" width={1400} height={800} fit="inside" format="webp" />
+		<h1 class="kv_logo">
+			<img src="/logo-w.svg" alt="Nostalgia Cafe Upu" width={700} height={600} />
+		</h1>
+		<div class="kv_copy">
+			<p>素材にこだわった</p>
+			<p>なつかしのメニュー</p>
+		</div>
+	</div>
+</div>
+
+<style>
+	.kv {
+		position: relative;
+		padding: 5%;
+	}
+	.kv_inner {
+		position: relative;
+	}
+	.kv img {
+		width: 100%;
+		height: auto;
+	}
+	.kv_logo {
+		position: absolute;
+		top: 5%;
+		left: 3%;
+		width: 45%;
+	}
+	.kv_copy {
+		position: absolute;
+		bottom: 5%;
+		left: -3%;
+	}
+	.kv_copy p {
+		display: inline-block;
+		width: fit-content;
+		word-break: keep-all;
+		background-color: #fff;
+		border-radius: 7px;
+		padding: 2% 5%;
+		font-size: clamp(10px, 3vw, 45px);
+		color: var(--base);
+		margin: 0.5rem 0;
+		box-sizing: border-box;
+	}
+	@media screen and (max-width: 600px) {
+		.kv {
+			height: 100vh;
+			padding: 0;
+			box-sizing: border-box;
+		}
+		.kv_inner {
+			height: 100%;
+			position: relative;
+		}
+
+		.kv_logo {
+			width: 65%;
+			height: 20%;
+		}
+		.kv .kv_logo > img {
+			width: 100%;
+			object-fit: contain;
+			object-position: left;
+		}
+		.kv img {
+			position: absolute;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			object-position: 70% 20%;
+		}
+		.kv_copy p {
+			font-size: clamp(25px, 7vw, 35px);
+		}
+	}
+</style>

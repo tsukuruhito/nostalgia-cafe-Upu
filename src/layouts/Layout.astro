@@ -1,5 +1,4 @@
 ---
-import "../styles/destyle.css";
 export interface Props {
 	title: string;
 }
@@ -15,11 +14,21 @@ const { title } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
+		<meta
+			name="description"
+			content="いつか食べたようななつかしさを感じるメニューをこだわり素材でご提供します。"
+		/>
+		<link rel="stylesheet" href="/destyle.css" />
 	</head>
 	<body>
 		<slot />
 		<style>
 			:root {
+				--astro-gradient: linear-gradient(0deg, #4f39fa, #da62c4);
+				font-family: "Times New Roman", Times, serif;
+				font-size: clamp(0.8rem, 5vw, 1rem);
+				--base: #3e3e3e;
+				color: var(--base);
 				--font-size-base: clamp(1rem, 0.34vw + 0.91rem, 1.19rem);
 				--font-size-lg: clamp(1.2rem, 0.7vw + 1.2rem, 1.5rem);
 				--font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
@@ -28,9 +37,28 @@ const { title } = Astro.props;
 				--color-bg: hsl(10, 21%, 95%);
 				--color-border: hsl(17, 24%, 90%);
 			}
+			body {
+				min-height: 100vh;
+			}
 		</style>
 		<style is:global>
+			.br::before {
+				content: "\A";
+				white-space: pre;
+			}
+			.nw {
+				display: inline-block;
+			}
+			footer {
+				background-color: #dedede;
+				padding: 1rem 0;
+				text-align: center;
+				color: #3e3e3e;
+			}
 
+			img {
+				max-width: 100%;
+			}
 		</style>
 	</body>
 </html>

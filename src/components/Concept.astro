@@ -1,0 +1,69 @@
+---
+import { Image } from "@astrojs/image/components";
+type Props = {
+	src: string;
+	alt: string;
+	title: string;
+	text: string;
+	direction?: boolean;
+};
+const { src, text, title, alt, direction }: Props = Astro.props;
+---
+
+<div class={direction ? "concept rev" : "concept"}>
+	<div class="concept_img">
+		<Image src={src} alt={alt} width={500} height={350} fit="inside" format="webp" />
+	</div>
+	<div class="concept_text">
+		<h3>{title}</h3>
+		<p>{text}</p>
+	</div>
+</div>
+
+<style>
+	.concept {
+		display: flex;
+		gap: 5%;
+		margin-bottom: 4rem;
+	}
+	.concept.rev {
+		flex-direction: row-reverse;
+	}
+	.concept_img,
+	.concept_text {
+		width: 50%;
+	}
+
+	.concept_img img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+	.concept_text h3 {
+		font-size: clamp(1.2rem, 2vw, 1.4rem);
+		margin-bottom: 0.5rem;
+	}
+
+	@media screen and (max-width: 600px) {
+		.concept {
+			flex-direction: column;
+		}
+		.concept.rev {
+			flex-direction: column;
+		}
+		.concept_img {
+			width: 70%;
+			max-width: 300px;
+		}
+		.concept_text {
+			width: 80%;
+			margin: 2rem 0 0 auto;
+		}
+		.concept.rev .concept_text {
+			margin: 2rem auto 0 0;
+		}
+		.concept.rev .concept_img {
+			margin: 0 0 0 auto;
+		}
+	}
+</style>

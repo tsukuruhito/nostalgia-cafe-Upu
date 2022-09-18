@@ -1,0 +1,81 @@
+---
+import News from "../../components/News.astro";
+import Layout from "../../layouts/Layout.astro";
+import { createClient } from "microcms-js-sdk";
+
+const client = createClient({
+	serviceDomain: import.meta.env.SERVICE_DOMAIN,
+	apiKey: import.meta.env.API_KEY,
+});
+
+type newsType = {
+	id: string;
+	title: string;
+	publishedAt: string;
+};
+
+const news: newsType[] = await client
+	.get({
+		endpoint: "news",
+		queries: {
+			fields: "id,title,publishedAt",
+			orders: "-publishedAt",
+		},
+	})
+	.then((res) => {
+		return res.contents;
+	});
+---
+
+<Layout title="Upu | News">
+	<main>
+		<div>
+			<h1>news all</h1>
+			<ul class="news_list">
+				{
+					news.map((item) => (
+						<News id={item.id} title={item.title} publishedAt={item.publishedAt} />
+					))
+				}
+			</ul>
+		</div>
+		<footer>Copyright&nbsp;©&nbsp;All&nbsp;right&nbsp;reserved&nbsp;Upu.</footer>
+	</main>
+</Layout>
+
+<style>
+	main {
+		min-height: 100vh;
+	}
+	main > div {
+		padding: 5%;
+		box-sizing: border-box;
+	}
+	h1 {
+		color: var(--base);
+		font-size: clamp(1rem, 3vw, 2.5rem);
+		display: flex;
+		width: 80%;
+		max-width: 350px;
+		align-items: center;
+		line-height: 1.5;
+		text-transform: capitalize;
+		word-break: keep-all;
+		white-space: nowrap;
+		margin-bottom: 2rem;
+	}
+	h1::after {
+		content: "";
+		display: block;
+		width: 100%;
+		height: 2px;
+		background-color: var(--base);
+		margin-left: 10%;
+	}
+	.news_list {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 1rem;
+		margin-bottom: 1rem;
+	}
+</style>

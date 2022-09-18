@@ -1,0 +1,108 @@
+---
+import { createClient } from "microcms-js-sdk";
+const client = createClient({
+	serviceDomain: import.meta.env.SERVICE_DOMAIN,
+	apiKey: import.meta.env.API_KEY,
+});
+
+const get = async () => {
+	const res = await client.get({ endpoint: "menu" });
+	return {
+		body: res.contents,
+	};
+};
+const data = await get();
+
+const limited = data.body.filter((item: { limited: boolean }) => item.limited === true);
+const standard = data.body.filter(
+	(item: { limited: boolean; drink: boolean }) => item.limited === false && item.drink === false
+);
+const drink = data.body.filter((item: { drink: boolean }) => item.drink === true);
+
+type Props = {
+	limitedMenu?: boolean;
+	isDrink?: boolean;
+};
+const { limitedMenu, isDrink }: Props = Astro.props;
+---
+
+<ul class="menu">
+	{
+		limitedMenu
+			? limited.map(
+					(item: {
+						image: { url: string | null | undefined };
+						itemName: string;
+						price: number;
+					}) => (
+						<li class="menu_item">
+							<img src={item.image.url} alt={item.itemName} width={200} height={150} />
+							<p>{item.itemName}</p>
+							<p>{item.price.toLocaleString()}円</p>
+						</li>
+					)
+			  )
+			: !isDrink
+			? standard.map(
+					(item: {
+						image: { url: string | null | undefined };
+						itemName: string;
+						price: number;
+					}) => (
+						<li class="menu_item">
+							<img src={item.image.url} alt={item.itemName} width={200} height={150} />
+							<p>{item.itemName}</p>
+							<p>{item.price.toLocaleString()}円</p>
+						</li>
+					)
+			  )
+			: drink.map(
+					(item: {
+						image: { url: string | null | undefined };
+						itemName: string;
+						price: number;
+					}) => (
+						<li class="menu_item">
+							<img src={item.image.url} alt={item.itemName} width={200} height={150} />
+							<p>{item.itemName}</p>
+							<p>{item.price.toLocaleString()}円</p>
+						</li>
+					)
+			  )
+	}
+</ul>
+
+<style>
+	.menu {
+		display: grid;
+		grid-template-columns: repeat(5, 1fr);
+		width: 100%;
+		gap: 1rem;
+	}
+	.menu img {
+		width: 100%;
+		height: auto;
+		object-fit: contain;
+	}
+	.menu_item img {
+		margin-bottom: 0.5rem;
+	}
+	.menu_item p {
+		font-size: clamp(0.8rem, 1.5vw, 1rem);
+		text-align: right;
+	}
+	.menu_item p:first-of-type {
+		margin-bottom: 0.2rem;
+	}
+	@media screen and (max-width: 1024px) {
+		.menu {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	@media screen and (max-width: 600px) {
+		.menu {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+</style>

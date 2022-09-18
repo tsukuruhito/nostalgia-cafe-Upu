@@ -1,6 +1,11 @@
 {
+	"root": true,
 	"extends": ["plugin:astro/recommended", "eslint:recommended", "prettier"],
-	"plugins": ["import", "unused-imports"],
+	"parserOptions": {
+		"sourceType": "module",
+		"ecmaVersion": 2022
+	},
+	"plugins": ["import", "unused-imports", "react"],
 	"overrides": [
 		{
 			"files": ["*.astro"],
@@ -8,9 +13,6 @@
 			"parserOptions": {
 				"parser": "@typescript-eslint/parser",
 				"extraFileExtensions": [".astro"]
-			},
-			"rules": {
-				"astro/no-set-html-directive": "error"
 			}
 		}
 	],

@@ -1,0 +1,94 @@
+---
+import { Image } from "@astrojs/image/components";
+---
+
+<div class="store">
+	<div class="store_img">
+		<Image src="/store.jpg" alt="店内" width={500} height={300} />
+	</div>
+	<div>
+		<div class="store_info">
+			<div>
+				<img src="/logo.svg" alt="Nostalgia Cafe Upu" width={150} height={100} />
+			</div>
+			<div>
+				<address>
+					〒000-0000
+					<span class="br">〇〇県〇〇区〇〇丁0-00</span>
+				</address>
+				<dl>
+					<dt>close</dt>
+					<dd>不定休</dd>
+					<dt>business</dt>
+					<dd>
+						月~木 10:00~21:00（L.O 20:15）<span class="br">金~日 10:00~22:00（L.O 21:15）</span>
+					</dd>
+				</dl>
+			</div>
+		</div>
+		<iframe
+			src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3255.391301848831!2d139.4586073155905!3d35.32110335724474!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3469fa9e9ce327aa!2zMzXCsDE5JzE2LjAiTiAxMznCsDI3JzM4LjkiRQ!5e0!3m2!1sja!2sjp!4v1662867470356!5m2!1sja!2sjp"
+			width="100%"
+			height="400"
+			style="border:0;"
+			allowfullscreen=""
+			loading="lazy"
+			referrerpolicy="no-referrer-when-downgrade"
+			title="店舗位置"></iframe>
+	</div>
+</div>
+
+<style>
+	.store {
+		display: flex;
+		gap: 5%;
+	}
+	.store > div:nth-child(1) {
+		width: 40%;
+	}
+	.store > div:nth-child(2) {
+		width: 60%;
+	}
+	.store_img img {
+		width: 100%;
+		height: auto;
+	}
+	.store_info {
+		display: grid;
+		grid-template-columns: 20% 75%;
+		gap: 5%;
+		font-weight: normal;
+		text-transform: capitalize;
+		font-size: clamp(0.8rem, 1.5vw, 1rem);
+		margin-bottom: 2rem;
+	}
+	.store_info img {
+		width: 100%;
+		height: auto;
+	}
+	.store_info dl {
+		display: grid;
+		width: 100%;
+		grid-template-columns: 25% 70%;
+		gap: 5%;
+	}
+
+	@media screen and (max-width: 1024px) {
+		.store {
+			flex-direction: column;
+		}
+		.store > div:nth-child(1) {
+			width: 80%;
+			max-width: 400px;
+			margin: 0 auto 2rem;
+		}
+		.store > div:nth-child(2) {
+			width: 100%;
+		}
+	}
+	@media screen and (max-width: 600px) {
+		.store iframe {
+			height: 250px;
+		}
+	}
+</style>

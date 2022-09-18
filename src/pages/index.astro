@@ -1,78 +1,171 @@
 ---
-import Card from "../components/Card.astro";
+import Concept from "../components/Concept.astro";
+import Kv from "../components/Kv.astro";
+import Menu from "../components/Menu.astro";
+import News from "../components/News.astro";
+import SectionBlock from "../components/SectionBlock.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import Sidebar from "../components/Sidebar.jsx";
+import Storeinfo from "../components/Storeinfo.astro";
 import Layout from "../layouts/Layout.astro";
+import { createClient } from "microcms-js-sdk";
+
+const client = createClient({
+	serviceDomain: import.meta.env.SERVICE_DOMAIN,
+	apiKey: import.meta.env.API_KEY,
+});
+
+type newsType = {
+	id: string;
+	title: string;
+	publishedAt: string;
+};
+const news: newsType[] = await client
+	.get({
+		endpoint: "news",
+		queries: {
+			limit: 2,
+			fields: "id,title,publishedAt",
+			orders: "-publishedAt",
+		},
+	})
+	.then((res) => {
+		return res.contents;
+	});
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			Check out the <code>src/pages</code> directory to get started.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card href="/works" title="works" body="It's a list of works." />
-			<Card href="/about" title="about" body="It's a page about me." />
-		</ul>
-	</main>
+<Layout title="Upu">
+	<div class="layout_row">
+		<main>
+			<Kv />
+			<div>
+				<SectionBlock>
+					<SectionTitle title="news" />
+					<ul class="news_list">
+						{
+							news.map((item) => (
+								<News id={item.id} title={item.title} publishedAt={item.publishedAt} />
+							))
+						}
+					</ul>
+					<p class="news_link"><a href="/news">すべてのお知らせ→</a></p>
+				</SectionBlock>
+				<SectionBlock>
+					<SectionTitle title="concept" />
+					<p class="concept_text">
+						あの日食べたあの味を想い出す。<br />そんなメニューをこだわり素材で<span class="nw"
+							>丁寧に。</span
+						>
+					</p>
+					<Concept
+						src="/ingredients.png"
+						alt="こだわりの卵と薄力粉"
+						title="素材へのこだわり"
+						text="テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト"
+					/>
+					<Concept
+						src="/coffee.png"
+						alt="こだわりのコーヒー"
+						title="メニューへのこだわり"
+						text="テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト"
+						direction={true}
+					/>
+					<Concept
+						src="/menu.png"
+						alt="メニューのイメージ"
+						title="なつかしい味ここで。"
+						text="テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト"
+					/>
+				</SectionBlock>
+				<SectionBlock>
+					<SectionTitle title="menu" />
+					<div class="menu_wrap">
+						<div>
+							<h3 class="menu_head">期間限定メニュー</h3>
+							<Menu limitedMenu={true} />
+						</div>
+						<div>
+							<h3 class="menu_head">通常メニュー</h3>
+							<div class="menu_space">
+								<Menu />
+								<Menu isDrink={true} />
+							</div>
+						</div>
+					</div>
+				</SectionBlock>
+				<SectionBlock>
+					<SectionTitle title="store info" />
+					<Storeinfo />
+				</SectionBlock>
+			</div>
+			<footer>Copyright&nbsp;©&nbsp;All&nbsp;right&nbsp;reserved&nbsp;Upu.</footer>
+		</main>
+		<Sidebar client:visible />
+	</div>
 </Layout>
 
 <style>
-	:root {
-		--astro-gradient: linear-gradient(0deg, #4f39fa, #da62c4);
-	}
-
-	h1 {
-		margin: 2rem 0;
-	}
-
 	main {
-		margin: auto;
-		padding: 1em;
-		max-width: 60ch;
+		height: 100%;
+		width: 80%;
+		box-sizing: border-box;
 	}
-
-	.text-gradient {
-		font-weight: 900;
-		background-image: var(--astro-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 100% 200%;
-		background-position-y: 100%;
-		border-radius: 0.4rem;
-		animation: pulse 4s ease-in-out infinite;
+	main > div {
+		padding: 0 5% 5%;
 	}
-
-	@keyframes pulse {
-		0%,
-		100% {
-			background-position-y: 0%;
-		}
-		50% {
-			background-position-y: 80%;
-		}
-	}
-
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		background: #4f39fa;
-		padding: 1rem;
-		border-radius: 0.4rem;
-		color: var(--color-bg);
-	}
-
-	.instructions code {
-		font-size: 0.875em;
-		border: 0.1em solid var(--color-border);
-		border-radius: 4px;
-		padding: 0.15em 0.25em;
-	}
-
-	.link-card-grid {
+	.news_list {
 		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		grid-template-columns: 1fr 1fr;
 		gap: 1rem;
-		padding: 0;
+		margin-bottom: 1rem;
+	}
+	.news_link {
+		text-align: right;
+	}
+	.concept_text {
+		font-size: clamp(1.3rem, 2vw, 1.7rem);
+		text-align: center;
+		line-height: 1.5;
+		letter-spacing: 2px;
+		margin-bottom: 2rem;
+	}
+	.menu_wrap {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+	}
+	.menu_head {
+		font-size: clamp(1.2rem, 2vw, 1.4rem);
+		margin-bottom: 0.5rem;
+	}
+	.menu_space {
+		display: flex;
+		flex-direction: column;
+		gap: 1rem;
+	}
+
+	.layout_row {
+		display: flex;
+		flex-direction: row-reverse;
+		height: 100%;
+		min-height: 100vh;
+		position: relative;
+	}
+	@media screen and (max-width: 600px) {
+		.layout_row {
+			display: block;
+			position: relative;
+		}
+
+		main {
+			width: 100%;
+		}
+
+		.news_list {
+			grid-template-columns: 1fr;
+		}
+		.concept_text {
+			font-size: clamp(1.2rem, 3vw, 1.5rem);
+		}
 	}
 </style>
