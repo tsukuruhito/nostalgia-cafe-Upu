@@ -5,5 +5,8 @@ import { defineConfig } from "astro/config";
 
 // https://astro.build/config
 export default defineConfig({
-	integrations: [react(), compress(), image()],
+	experimental: {
+		integrations: true,
+	  },
+	integrations: [react(), compress(), image(), robotsTxt()],
 });
