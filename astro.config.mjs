@@ -7,6 +7,6 @@ import { defineConfig } from "astro/config";
 export default defineConfig({
 	experimental: {
 		integrations: true,
-	  },
-	integrations: [react(), compress(), image(), robotsTxt()],
+	},
+	integrations: [react(), compress(), image()],
 });
