@@ -10,7 +10,7 @@ export default function Sidebar() {
 	return (
 		<aside className={style.sidebar}>
 			<div className={style.sidebar_logo}>
-				<img src="/logo-w.svg" alt="Nostalgic Cafe Upu" />
+				<img src="/assets/logo-w.svg" alt="Nostalgic Cafe Upu" />
 			</div>
 			<nav className={style.sidebar_nav}>
 				<ul className={isOpen ? `${style.open}` : ""}>
@@ -49,12 +49,12 @@ export default function Sidebar() {
 			<ul className={style.sidebar_sns}>
 				<li>
 					<a href="#">
-						<img src="/icon_tw.png" alt="Twitter" width={40} height={40} />
+						<img src="/assets/icon_tw.png" alt="Twitter" width={40} height={40} />
 					</a>
 				</li>
 				<li>
 					<a href="#">
-						<img src="/icon_ig.png" alt="Instagram" width={40} height={40} />
+						<img src="/assets/icon_ig.png" alt="Instagram" width={40} height={40} />
 					</a>
 				</li>
 			</ul>
