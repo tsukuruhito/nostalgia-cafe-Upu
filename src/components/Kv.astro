@@ -4,9 +4,17 @@ import { Image } from "@astrojs/image/components";
 
 <div class="kv">
 	<div class="kv_inner">
-		<Image src="/kv.jpg" alt="kv" width={1400} height={800} fit="inside" format="webp" />
+		<Image
+			src="/kv.jpg"
+			loading="eager"
+			alt="kv"
+			width={1318}
+			height={800}
+			fit="inside"
+			format="webp"
+		/>
 		<h1 class="kv_logo">
-			<img src="/logo-w.svg" alt="Nostalgia Cafe Upu" width={700} height={600} />
+			<img src="/logo-w.svg" alt="Nostalgia Cafe Upu" width={104} height={75} />
 		</h1>
 		<div class="kv_copy">
 			<p>素材にこだわった</p>

@@ -23,6 +23,7 @@ const { title } = Astro.props;
 	</head>
 	<body>
 		<slot />
+		<footer>Copyright&nbsp;©&nbsp;All&nbsp;right&nbsp;reserved&nbsp;Upu.</footer>
 		<style>
 			:root {
 				--astro-gradient: linear-gradient(0deg, #4f39fa, #da62c4);
@@ -62,4 +63,11 @@ const { title } = Astro.props;
 			}
 		</style>
 	</body>
+	<script>
+		const main = document.querySelector("main");
+		const footer = document.querySelector("footer");
+		if (main && footer) {
+			main.style.minHeight = `calc(100vh - ${footer.clientHeight}px)`;
+		}
+	</script>
 </html>

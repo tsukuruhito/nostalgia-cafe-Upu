@@ -12,7 +12,7 @@ const { src, text, title, alt, direction }: Props = Astro.props;
 
 <div class={direction ? "concept rev" : "concept"}>
 	<div class="concept_img">
-		<Image src={src} alt={alt} width={500} height={350} fit="inside" format="webp" />
+		<Image src={src} alt={alt} width={500} height={350} fit="inside" format="webp" loading="lazy" />
 	</div>
 	<div class="concept_text">
 		<h3>{title}</h3>
