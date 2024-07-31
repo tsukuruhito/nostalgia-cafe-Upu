@@ -35,81 +35,71 @@ const news: newsType[] = await client
 ---
 
 <Layout title="Upu">
-	<div class="layout_row">
-		<main>
-			<Kv />
-			<div>
-				<SectionBlock>
-					<SectionTitle title="news" />
-					<ul class="news_list">
-						{
-							news.map((item) => (
-								<News id={item.id} title={item.title} publishedAt={item.publishedAt} />
-							))
-						}
-					</ul>
-					<p class="news_link"><a href="/news">すべてのお知らせ→</a></p>
-				</SectionBlock>
-				<SectionBlock>
-					<SectionTitle title="concept" />
-					<p class="concept_text">
-						あの日食べたあの味を想い出す。<br />そんなメニューをこだわり素材で<span class="nw"
-							>丁寧に。</span
-						>
-					</p>
-					<Concept
-						src="/assets/ingredients.png"
-						alt="こだわりの卵と薄力粉"
-						title="素材へのこだわり"
-						text="テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト"
-					/>
-					<Concept
-						src="/assets/coffee.png"
-						alt="こだわりのコーヒー"
-						title="メニューへのこだわり"
-						text="テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト"
-						direction={true}
-					/>
-					<Concept
-						src="/assets/menu.png"
-						alt="メニューのイメージ"
-						title="なつかしい味ここで。"
-						text="テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト"
-					/>
-				</SectionBlock>
-				<SectionBlock>
-					<SectionTitle title="menu" />
-					<div class="menu_wrap">
-						<div>
-							<h3 class="menu_head">期間限定メニュー</h3>
-							<Menu limitedMenu={true} />
-						</div>
-						<div>
-							<h3 class="menu_head">通常メニュー</h3>
-							<div class="menu_space">
-								<Menu />
-								<Menu isDrink={true} />
-							</div>
-						</div>
+	<Kv />
+	<div class="container">
+		<SectionBlock>
+			<SectionTitle title="news" />
+			<ul class="news_list">
+				{
+					news.map((item) => (
+						<News id={item.id} title={item.title} publishedAt={item.publishedAt} />
+					))
+				}
+			</ul>
+			<p class="news_link"><a href="/news">すべてのお知らせ→</a></p>
+		</SectionBlock>
+		<SectionBlock>
+			<SectionTitle title="concept" />
+			<p class="concept_text">
+				あの日食べたあの味を想い出す。<br />そんなメニューをこだわり素材で<span class="nw"
+					>丁寧に。</span
+				>
+			</p>
+			<Concept
+				src="/assets/ingredients.png"
+				alt="こだわりの卵と薄力粉"
+				title="素材へのこだわり"
+				text="テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト"
+			/>
+			<Concept
+				src="/assets/coffee.png"
+				alt="こだわりのコーヒー"
+				title="メニューへのこだわり"
+				text="テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト"
+				direction={true}
+			/>
+			<Concept
+				src="/assets/menu.png"
+				alt="メニューのイメージ"
+				title="なつかしい味ここで。"
+				text="テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト"
+			/>
+		</SectionBlock>
+		<SectionBlock>
+			<SectionTitle title="menu" />
+			<div class="menu_wrap">
+				<div>
+					<h3 class="menu_head">期間限定メニュー</h3>
+					<Menu limitedMenu={true} />
+				</div>
+				<div>
+					<h3 class="menu_head">通常メニュー</h3>
+					<div class="menu_space">
+						<Menu />
+						<Menu isDrink={true} />
 					</div>
-				</SectionBlock>
-				<SectionBlock>
-					<SectionTitle title="store info" />
-					<Storeinfo />
-				</SectionBlock>
+				</div>
 			</div>
-		</main>
-		<Sidebar client:visible />
+		</SectionBlock>
+		<SectionBlock>
+			<SectionTitle title="store info" />
+			<Storeinfo />
+		</SectionBlock>
 	</div>
 </Layout>
 
 <style>
-	main {
-		height: 100%;
-		width: 80%;
-		box-sizing: border-box;
-	}
-	main > div {
+	.container{
 		padding: 0 5% 5%;
 	}
 	.news_list {
@@ -143,23 +133,7 @@ const news: newsType[] = await client
 		gap: 1rem;
 	}
 
-	.layout_row {
-		display: flex;
-		flex-direction: row-reverse;
-		height: 100%;
-		min-height: 100vh;
-		position: relative;
-	}
 	@media screen and (max-width: 600px) {
-		.layout_row {
-			display: block;
-			position: relative;
-		}
-
-		main {
-			width: 100%;
-		}
-
 		.news_list {
 			grid-template-columns: 1fr;
 		}

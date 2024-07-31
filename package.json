@@ -2,6 +2,7 @@
 	"name": "nostalgia_cafe_upu",
 	"version": "0.0.2",
 	"private": true,
+	"type": "module",
 	"scripts": {
 		"dev": "astro dev",
 		"start": "astro dev",
@@ -14,32 +15,31 @@
 		"prepare": "husky install"
 	},
 	"dependencies": {
-		"@astrojs/image": "^0.7.1",
-		"astro": "^2.0.4",
-		"astro-compress": "^1.1.28",
-		"microcms-js-sdk": "^2.2.1",
-		"react-scroll": "^1.8.7"
+		"astro": "^4.12.2",
+		"astro-compress": "^2.3.0",
+		"microcms-js-sdk": "^3.1.2",
+		"react-scroll": "^1.9.0"
 	},
 	"devDependencies": {
-		"@astrojs/react": "^2.0.2",
+		"@astrojs/react": "^3.6.0",
 		"@types/react": "^18.0.18",
 		"@types/react-dom": "^18.0.6",
-		"@typescript-eslint/parser": "^5.49.0",
-		"astro-eslint-parser": "^0.5.1",
-		"astro-robots-txt": "^0.3.9",
-		"eslint": "^8.33.0",
-		"eslint-config-prettier": "^8.5.0",
+		"@typescript-eslint/parser": "^7.18.0",
+		"astro-eslint-parser": "^1.0.2",
+		"astro-robots-txt": "^1.0.0",
+		"eslint": "^9.8.0",
+		"eslint-config-prettier": "^9.1.0",
 		"eslint-import-resolver-node": "^0.3.6",
-		"eslint-plugin-astro": "^0.17.1",
+		"eslint-plugin-astro": "^1.2.3",
 		"eslint-plugin-import": "^2.26.0",
 		"eslint-plugin-react": "^7.31.8",
-		"eslint-plugin-unused-imports": "^2.0.0",
-		"husky": "^8.0.1",
-		"lint-staged": "^13.0.3",
-		"prettier": "^2.8.3",
-		"prettier-plugin-astro": "^0.5.5",
+		"eslint-plugin-unused-imports": "^4.0.1",
+		"husky": "^9.1.4",
+		"lint-staged": "^15.2.7",
+		"prettier": "^3.3.3",
+		"prettier-plugin-astro": "^0.14.1",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",
-		"typescript": "^4.8.2"
+		"typescript": "^5.5.4"
 	}
 }

@@ -9,6 +9,7 @@
 .sidebar_logo {
 	width: 60%;
 	margin: 20px auto;
+	display: block;
 }
 .sidebar_nav {
 	padding: 0 10%;

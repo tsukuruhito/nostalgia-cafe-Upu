@@ -1,4 +1,6 @@
 ---
+import Sidebar from '../components/Sidebar';
+
 export interface Props {
 	title: string;
 }
@@ -22,8 +24,15 @@ const { title } = Astro.props;
 		<link rel="stylesheet" href="/assets/destyle.css" />
 	</head>
 	<body>
-		<slot />
-		<footer>Copyright&nbsp;©&nbsp;All&nbsp;right&nbsp;reserved&nbsp;Upu.</footer>
+		<div class="layout_row">
+			<div>
+				<main>
+					<slot />
+				</main>
+				<footer>Copyright&nbsp;©&nbsp;All&nbsp;right&nbsp;reserved&nbsp;Upu.</footer>
+			</div>
+			<Sidebar client:visible />
+		</div>
 		<style>
 			:root {
 				--astro-gradient: linear-gradient(0deg, #4f39fa, #da62c4);
@@ -71,3 +80,29 @@ const { title } = Astro.props;
 		}
 	</script>
 </html>
+
+<style>
+	main {
+		height: 100%;
+		box-sizing: border-box;
+	}
+	.layout_row {
+		display: flex;
+		flex-direction: row-reverse;
+		height: 100%;
+		min-height: 100vh;
+		position: relative;
+	}
+	.layout_row > div {
+		width: 80%;
+	}
+	@media screen and (max-width: 600px) {
+		.layout_row > div {
+			width: 100%;
+		}
+		.layout_row {
+			display: block;
+			position: relative;
+		}
+	}
+</style>
