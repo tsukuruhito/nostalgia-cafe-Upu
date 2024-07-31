@@ -12,8 +12,22 @@ const get = async () => {
 		body: res.contents,
 	};
 };
-const data = await get();
 
+type dataType = {
+	body: {
+		id: string;
+		createdAt: string;
+		updatedAt: string;
+		publishedAt: string;
+		revisedAt: string;
+		image: { url: string | null | undefined };
+		itemName: string;
+		price: number;
+		limited: boolean;
+		drink: boolean;
+	}[];
+};
+const data:dataType = await get();
 const limited = data.body.filter((item: { limited: boolean }) => item.limited === true);
 const standard = data.body.filter(
 	(item: { limited: boolean; drink: boolean }) => item.limited === false && item.drink === false
