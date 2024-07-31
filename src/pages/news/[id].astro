@@ -1,21 +1,26 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import Layout from "@layouts/Layout.astro";
 import { createClient } from "microcms-js-sdk";
 
 export const client = createClient({
 	serviceDomain: import.meta.env.SERVICE_DOMAIN,
 	apiKey: import.meta.env.API_KEY,
 });
-
+type responseType = {
+	contents: { id: string }[];
+	totalCount: number;
+	offset: number;
+	limit: number;
+};
 export async function getStaticPaths() {
-	const news = await client
+	const news: {id:string}[] = await client
 		.get({
 			endpoint: "news",
 			queries: {
 				fields: "id",
 			},
 		})
-		.then((res) => {
+		.then((res: responseType) => {
 			return res.contents;
 		});
 
@@ -29,37 +34,39 @@ export async function getStaticPaths() {
 
 const { id } = Astro.params;
 
-const newsContent = async () => {
-	const news = await client
+type newsType = {
+	id: string;
+	title: string;
+	content: string;
+	createdAt: string;
+	updatedAt: string;
+	publishedAt: string;
+	revisedAt: string;
+};
+const newsContent = async (): Promise<newsType> => {
+	const news:newsType = await client
 		.get({
 			endpoint: "news",
 			contentId: id as string,
 		})
-		.then((res) => {
+		.then((res: newsType) => {
 			return res;
 		});
 	return news;
 };
 const data = await newsContent();
-const content: string = data.content;
+const title = data.title;
+const content = data.content;
 ---
 
-<Layout title={`Upu | ${data.title}`}>
-	<main>
-		<div>
-			<h1>{data.title}</h1>
-			<Fragment set:html={content} />
-		</div>
-	</main>
+<Layout title={`Upu | ${title}`}>
+	<div class="container">
+		<h1>{title}</h1>
+		<Fragment set:html={content} />
+	</div>
 </Layout>
-<script is:inline>
-	console.log(window.location.search);
-</script>
 <style>
-	main {
-		min-height: 100vh;
-	}
-	main > div {
+	.container{
 		padding: 5%;
 		box-sizing: border-box;
 	}

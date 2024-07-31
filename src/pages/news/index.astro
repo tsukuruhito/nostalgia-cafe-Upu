@@ -1,6 +1,6 @@
 ---
-import News from "../../components/News.astro";
-import Layout from "../../layouts/Layout.astro";
+import News from "@components/News.astro";
+import Layout from "@layouts/Layout.astro";
 import { createClient } from "microcms-js-sdk";
 
 const client = createClient({
@@ -13,36 +13,39 @@ type newsType = {
 	title: string;
 	publishedAt: string;
 };
-
+type newsObjectType = {
+	contents: newsType[],
+	totalCount: number,
+	offset: number,
+	limit: number
+}
 const news: newsType[] = await client
-	.get({
+	.get<newsObjectType>({
 		endpoint: "news",
 		queries: {
 			fields: "id,title,publishedAt",
 			orders: "-publishedAt",
 		},
 	})
-	.then((res) => {
+	.then((res:newsObjectType) => {
 		return res.contents;
 	});
 ---
 
 <Layout title="Upu | News">
-	<main>
-		<div>
-			<h1>news all</h1>
-			<ul class="news_list">
-				{
-					news.map((item) => (
-						<News id={item.id} title={item.title} publishedAt={item.publishedAt} />
-					))
-				}
-			</ul>
-		</div>
-	</main>
+	<div class="container">
+		<h1>news all</h1>
+		<ul class="news_list">
+			{
+				news.map((item) => (
+					<News id={item.id} title={item.title} publishedAt={item.publishedAt} />
+				))
+			}
+		</ul>
+	</div>
 </Layout>
 <style>
-	main > div {
+	.container {
 		padding: 5%;
 		box-sizing: border-box;
 	}

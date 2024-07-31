@@ -1,4 +1,5 @@
 ---
+import { Image } from "astro:assets";
 import { createClient } from "microcms-js-sdk";
 const client = createClient({
 	serviceDomain: import.meta.env.SERVICE_DOMAIN,
@@ -11,8 +12,22 @@ const get = async () => {
 		body: res.contents,
 	};
 };
-const data = await get();
 
+type dataType = {
+	body: {
+		id: string;
+		createdAt: string;
+		updatedAt: string;
+		publishedAt: string;
+		revisedAt: string;
+		image: { url: string | null | undefined };
+		itemName: string;
+		price: number;
+		limited: boolean;
+		drink: boolean;
+	}[];
+};
+const data:dataType = await get();
 const limited = data.body.filter((item: { limited: boolean }) => item.limited === true);
 const standard = data.body.filter(
 	(item: { limited: boolean; drink: boolean }) => item.limited === false && item.drink === false
@@ -36,7 +51,7 @@ const { limitedMenu, isDrink }: Props = Astro.props;
 						price: number;
 					}) => (
 						<li class="menu_item">
-							<img src={item.image.url} alt={item.itemName} width={200} height={150} />
+							<Image src={item.image.url!} alt={item.itemName} width={200} height={150} />
 							<p>{item.itemName}</p>
 							<p>{item.price.toLocaleString()}円</p>
 						</li>
@@ -50,7 +65,7 @@ const { limitedMenu, isDrink }: Props = Astro.props;
 						price: number;
 					}) => (
 						<li class="menu_item">
-							<img src={item.image.url} alt={item.itemName} width={200} height={150} />
+							<Image src={item.image.url!} alt={item.itemName} width={200} height={150} />
 							<p>{item.itemName}</p>
 							<p>{item.price.toLocaleString()}円</p>
 						</li>
@@ -63,7 +78,7 @@ const { limitedMenu, isDrink }: Props = Astro.props;
 						price: number;
 					}) => (
 						<li class="menu_item">
-							<img src={item.image.url} alt={item.itemName} width={200} height={150} />
+							<Image src={item.image.url!} alt={item.itemName} width={200} height={150} />
 							<p>{item.itemName}</p>
 							<p>{item.price.toLocaleString()}円</p>
 						</li>
